@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1600, initial-scale=1">
+  <title>Local fixture verification</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1600px; height: 900px; overflow: hidden; }
+    body {
+      padding: 54px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #172033;
+      background: linear-gradient(145deg, #eef2f7, #e3e8f1);
+    }
+    header { display: flex; justify-content: space-between; align-items: center; margin: 0 10px 28px; }
+    h1 { margin: 0; font-size: 38px; letter-spacing: -.025em; }
+    .disclosure { padding: 11px 17px; border-radius: 999px; background: #6c5dcc; color: white; font-size: 18px; font-weight: 800; letter-spacing: .02em; }
+    .workspace { display: grid; grid-template-columns: 1.04fr .96fr; gap: 26px; height: 726px; }
+    .panel { overflow: hidden; border: 1px solid rgba(73, 84, 113, .19); border-radius: 20px; background: white; box-shadow: 0 24px 55px rgba(54, 63, 87, .16); }
+    .titlebar { height: 54px; display: flex; align-items: center; gap: 8px; padding: 0 18px; border-bottom: 1px solid #dfe4eb; color: #667085; font-size: 16px; font-weight: 700; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #aeb7c6; }
+    .address { margin-left: 12px; flex: 1; padding: 8px 12px; border-radius: 8px; background: #eef1f5; color: #697386; font-weight: 600; }
+    .browser-body { height: 672px; padding: 38px; background: radial-gradient(circle at 23% 13%, rgba(124, 109, 221, .14), transparent 290px), linear-gradient(145deg, #f7f9fc, #e9eef6); }
+    .eyebrow { color: #667085; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin: 10px 0 8px; font-size: 32px; }
+    .intro { margin: 0; max-width: 560px; color: #667085; font-size: 19px; line-height: 1.55; }
+    .result { width: 420px; margin: 96px auto 0; padding: 48px 24px; border: 1px solid #d5dae4; border-radius: 18px; background: rgba(255, 255, 255, .97); text-align: center; box-shadow: 0 24px 60px rgba(45, 55, 78, .16); }
+    .check { width: 62px; height: 62px; display: grid; place-items: center; margin: 0 auto 17px; border-radius: 20px; background: #edeafd; color: #6959c7; font-size: 34px; font-weight: 900; }
+    .result strong { display: block; font-size: 29px; }
+    .result small { display: block; margin-top: 9px; color: #667085; font-size: 18px; }
+    .terminal { background: #181b24; color: #d8deeb; }
+    .terminal .titlebar { border-color: #2b3140; color: #aeb7c7; background: #20242f; }
+    pre { margin: 0; padding: 34px 30px; white-space: pre-wrap; font: 21px/1.72 "Cascadia Mono", Consolas, monospace; }
+    .prompt { color: #a99df2; }
+    .info { color: #a8c7fa; }
+    .success { color: #89d6b2; }
+    .muted { color: #939caf; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Local fixture verification</h1>
+    <div class="disclosure">Illustrative synthetic demo</div>
+  </header>
+  <main class="workspace">
+    <section class="panel">
+      <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address">127.0.0.1:8765/notification-fixture.html</span></div>
+      <div class="browser-body">
+        <div class="eyebrow">Local fixture · No network</div>
+        <h2>Notification Demo</h2>
+        <p class="intro">A synthetic page for verifying one routine confirmation click.</p>
+        <div class="result"><div class="check">✓</div><strong>Confirmed locally</strong><small>No data left this page.</small></div>
+      </div>
+    </section>
+    <section class="panel terminal">
+      <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>PowerShell · local demo</div>
+      <pre><span class="prompt">PS&gt;</span> python popup_clicker.py `
+  --url "http://127.0.0.1:8765/notification-fixture.html" `
+  --poll-seconds 1
+
+<span class="info">[INFO]</span> Starting browser.
+<span class="muted">       Profile: [local demo profile]</span>
+<span class="info">[INFO]</span> Target: localhost fixture
+
+<span class="success">[INFO] Clicked popup button "确定"</span>
+
+^C
+<span class="success">[INFO] Stopping after Ctrl+C.</span></pre>
+    </section>
+  </main>
+</body>
+</html>

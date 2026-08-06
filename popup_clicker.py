@@ -11,20 +11,12 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
 
-DEFAULT_URL = (
-    "https://ucontent.unipus.cn/_explorationpc_default/pc.html?"
-    "cid=1589613532819833081&theme=3264FA&aitutorialId=25705&"
-    "cloudCurriculaId=266531&source=cloud&courseResourceId=20000948094#/"
-    "course-v2:7f3402a1f00cf77+nhce_v4_rw_2+20230116/courseware/"
-    "6275f64dc00123f/662b4f1c5000d39/662b4f6530010bf/662b47cde000d39"
-)
-
 DEFAULT_BUTTON_TEXT = "\u786e\u5b9a"
 
 
 @dataclass(frozen=True)
 class Settings:
-    url: str = DEFAULT_URL
+    url: str
     button_text: str = DEFAULT_BUTTON_TEXT
     poll_seconds: float = 5.0
     profile_dir: Path = Path(".browser-profile")
@@ -97,7 +89,7 @@ def parse_args(argv: list[str] | None = None) -> Settings:
     parser = argparse.ArgumentParser(
         description="Open the Unipus page and click the normal notification popup.",
     )
-    parser.add_argument("--url", default=DEFAULT_URL)
+    parser.add_argument("--url", required=True)
     parser.add_argument("--button-text", default=DEFAULT_BUTTON_TEXT)
     parser.add_argument("--poll-seconds", type=float, default=5.0)
     parser.add_argument("--profile-dir", type=Path, default=Path(".browser-profile"))
